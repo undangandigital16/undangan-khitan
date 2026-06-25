@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Khitanan - Muhammad Aliando Syarif</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Reenie+Beanie&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind Custom Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            50: '#f0fdf4',
+                            900: '#064e3b',
+                            950: '#022c22',
+                        },
+                        gold: {
+                            100: '#fef3c7',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        italiana: ['Italiana', 'serif'],
+                        handwritten: ['Reenie Beanie', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styling for Animations & Audio -->
+    <style>
+        body {
+            background-color: #022c22;
+            color: #f0fdf4;
+            overflow-x: hidden;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #022c22;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d97706;
+            border-radius: 10px;
+        }
+
+        /* Gold gradient outline for decorative elements */
+        .gold-border {
+            border: 2px solid transparent;
+            background-image: linear-gradient(#022c22, #022c22), linear-gradient(to right, #f59e0b, #b45309, #f59e0b);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+
+        /* Soft pulse animation for map pointer and open button */
+        @keyframes pulse-gold {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
+        }
+        .pulse-btn {
+            animation: pulse-gold 2s infinite;
+        }
+
+        /* Floating music icon spin */
+        @keyframes slow-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .music-spin {
+            animation: slow-spin 8s linear infinite;
+        }
+
+        /* Page cover transition */
+        .cover-active {
+            transform: translateY(0);
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .cover-hidden {
+            transform: translateY(-100%);
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-gold-600 selection:text-white">
+
+    <!-- AUDIO ELEMENT -->
+    <!-- 
+        ========================================================================
+        CATATAN PENTING (2): BAGIAN UNTUK MENAMBAHKAN / MENGGANTI MUSIK 
+        Anda bisa mengganti link di dalam 'src' dengan link lagu MP3 pilihan Anda sendiri.
+        Pastikan link tersebut langsung merujuk ke file audio mentah (.mp3).
+        ========================================================================
+    -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen musik otomatis.
+    </audio>
+
+    <!-- FLOATING MUSIC CONTROL -->
+    <button id="musicToggle" class="fixed bottom-6 right-6 z-40 bg-gold-600 hover:bg-gold-700 text-emerald-950 p-3.5 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-110 flex items-center justify-center border border-gold-100/50 hidden">
+        <i id="musicIcon" class="fa-solid fa-compact-disc text-xl music-spin"></i>
+    </button>
+
+    <!-- ========================================== -->
+    <!--          SCREEN 1: COVER UNDANGAN          -->
+    <!-- ========================================== -->
+    <div id="welcomeCover" class="fixed inset-0 z-50 bg-gradient-to-b from-emerald-950 via-emerald-900 to-emerald-950 flex flex-col justify-between items-center px-6 py-12 text-center overflow-hidden cover-active">
+        
+        <!-- Ornamen Atas -->
+        <div class="w-full max-w-md flex justify-between opacity-40">
+            <div class="text-gold-500 text-3xl"><i class="fa-solid fa-mosque"></i></div>
+            <div class="text-gold-500 text-lg tracking-widest uppercase font-serif">Walimatul Khitan</div>
+            <div class="text-gold-500 text-3xl"><i class="fa-solid fa-star-and-crescent"></i></div>
+        </div>
+
+        <!-- Konten Utama Cover -->
+        <div class="w-full max-w-lg my-auto flex flex-col items-center">
+            <span class="text-gold-500 font-serif tracking-[0.2em] text-xs sm:text-sm uppercase mb-4 block">Undangan Khitanan</span>
+            
+            <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-gold-100 tracking-wide mb-3 leading-tight">
+                Muhammad Aliando Syarif
+            </h1>
+            
+            <p class="text-emerald-100 text-sm sm:text-base font-light italic max-w-sm mb-8 leading-relaxed">
+                Putra pertama dari Bpk. Muhammad Syarif & Ibu Erni Senita
+            </p>
+
+            <!-- 
+                ========================================================================
+                CATATAN PENTING (3): BAGIAN FOTO ANAK (SAMPUL)
+                - Ukuran frame diatur agar responsive (max-w-[180px] hingga 220px) 
+                  sehingga sangat pas di semua resolusi handphone Android & iOS.
+                - Silakan ganti nilai 'src' di bawah ini dengan link foto Anda sendiri.
+                ========================================================================
+            -->
+            <div class="relative mb-8 group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-gold-500 to-gold-700 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                <div class="relative w-44 h-44 sm:w-52 sm:h-52 rounded-full overflow-hidden border-4 border-emerald-950 bg-emerald-900 shadow-xl flex items-center justify-center">
+                    <!-- Ganti URL gambar di bawah ini dengan foto anak -->
+                    <img id="fotoAnakCover" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400" alt="Foto Muhammad Aliando Syarif" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/400x400/047857/FFFFFF?text=Aliando';">
+                </div>
+            </div>
+
+            <p class="text-emerald-200/80 text-xs mb-4">Kepada Bapak/Ibu/Saudara/i kami mengundang Anda untuk hadir.</p>
+
+            <!-- Tombol Buka Undangan Berbentuk Amplop -->
+            <button id="btnOpen" class="pulse-btn bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-600 text-emerald-950 font-semibold px-8 py-3.5 rounded-full shadow-lg flex items-center gap-3 transition-all duration-300 transform active:scale-95 group">
+                <i class="fa-solid fa-envelope-open text-lg group-hover:rotate-12 transition-transform duration-300"></i>
+                <span class="tracking-wide text-sm sm:text-base">Buka Undangan</span>
+            </button>
+        </div>
+
+        <!-- Ornamen Bawah -->
+        <div class="text-gold-500/30 text-xs tracking-wider">
+            © 2026 Aliando Invitation. All Rights Reserved.
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!--          SCREEN 2: KONTEN UTAMA            -->
+    <!-- ========================================== -->
+    <main id="mainContent" class="min-h-screen bg-gradient-to-b from-emerald-950 via-emerald-900 to-emerald-950 pb-20 opacity-0 transition-opacity duration-1000">
+        
+        <!-- Header Ornamen -->
+        <header class="py-12 text-center relative px-4">
+            <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent"></div>
+            <p class="font-handwritten text-4xl text-gold-500 mb-2">Bismillah</p>
+            <div class="w-24 h-[1px] bg-gold-500 mx-auto opacity-50 mb-4"></div>
+        </header>
+
+        <!-- Seksi Pembuka & Ayat -->
+        <section class="max-w-2xl mx-auto px-6 text-center mb-16">
+            <h2 class="font-serif text-lg sm:text-xl text-gold-100 font-semibold mb-6 tracking-wide">
+                Assalamu'alaikum warahmatullahi wabarakatuh
+            </h2>
+            
+            <div class="space-y-6 text-emerald-100/90 text-sm sm:text-base leading-relaxed font-light">
+                <p>
+                    Dengan memanjatkan puji dan syukur ke hadirat Allah SWT atas segala rahmat, nikmat, dan karunia-Nya, kami bermaksud menyelenggarakan acara tasyakuran khitan sebagai ungkapan rasa syukur atas salah satu langkah penting dalam menjalankan syariat Islam.
+                </p>
+                
+                <!-- Ornamen Pembatas Kecil -->
+                <div class="flex justify-center items-center gap-3 py-2">
+                    <div class="w-8 h-[1px] bg-gold-500/40"></div>
+                    <i class="fa-solid fa-star-and-crescent text-gold-500 text-xs"></i>
+                    <div class="w-8 h-[1px] bg-gold-500/40"></div>
+                </div>
+
+                <p>
+                    Melalui momen yang penuh keberkahan ini, kami memohon doa agar senantiasa diberikan kesehatan, keselamatan, ilmu yang bermanfaat, akhlak yang mulia, serta menjadi pribadi yang taat kepada Allah SWT dan berbakti kepada kedua orang tua.
+                </p>
+
+                <p class="font-medium text-gold-100">
+                    Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa dan restu.
+                </p>
+            </div>
+        </section>
+
+        <!-- Seksi Profil Anak -->
+        <section class="max-w-md mx-auto px-6 mb-16 text-center">
+            <div class="gold-border p-8 rounded-2xl shadow-2xl bg-emerald-950/80 backdrop-blur-sm relative">
+                <!-- Ornamen Pojok -->
+                <div class="absolute top-2 left-2 text-gold-500/30 text-xs"><i class="fa-solid fa-mosque"></i></div>
+                <div class="absolute top-2 right-2 text-gold-500/30 text-xs"><i class="fa-solid fa-star-and-crescent"></i></div>
+
+                <span class="text-gold-500 font-serif tracking-widest text-xs uppercase mb-3 block">Yang Berbahagia</span>
+                
+                <h3 class="font-serif text-2xl sm:text-3xl font-bold text-gold-100 mb-2">
+                    Muhammad Aliando Syarif
+                </h3>
+                
+                <p class="text-emerald-200 text-xs sm:text-sm italic mb-6">
+                    Putra pertama dari Bpk. Muhammad Syarif & Ibu Erni Senita
+                </p>
+
+                <!-- Foto Tambahan di Dalam Konten (Tetap Responsif & Rapih) -->
+                <div class="w-32 h-32 mx-auto rounded-full overflow-hidden border-2 border-gold-500 shadow-lg mb-4">
+                    <img id="fotoAnakContent" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400" alt="Foto Aliando Syarif" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/400x400/047857/FFFFFF?text=Aliando';">
+                </div>
+                
+                <p class="text-emerald-100/70 text-xs leading-relaxed">
+                    Semoga kelak tumbuh menjadi anak yang sholeh, cerdas, berbakti kepada agama, nusa, bangsa, dan kedua orang tuanya. Aamiin Yaa Rabbal 'Aalamiin.
+                </p>
+            </div>
+        </section>
+
+        <!-- Seksi Acara & Countdown -->
+        <section class="max-w-2xl mx-auto px-6 mb-16 text-center">
+            <div class="bg-emerald-950/50 border border-gold-500/20 rounded-3xl py-10 px-6 shadow-xl backdrop-blur-sm">
+                <i class="fa-regular fa-calendar-days text-gold-500 text-4xl mb-4"></i>
+                <h3 class="font-serif text-xl sm:text-2xl text-gold-100 font-semibold mb-2">Pelaksanaan Acara</h3>
+                <p class="text-emerald-200 text-sm sm:text-base mb-6">Insya Allah acara tasyakuran akan diselenggarakan pada:</p>
+                
+                <!-- Tanggal Utama -->
+                <div class="bg-emerald-900/50 py-3 px-6 rounded-xl inline-block border border-gold-500/10 mb-8">
+                    <span class="text-gold-500 font-serif text-lg sm:text-xl font-bold block">Minggu</span>
+                    <span class="text-gold-100 text-2xl sm:text-3xl font-extrabold tracking-wider my-1 block">28 JUNI 2026</span>
+                    <span class="text-emerald-200 text-xs tracking-widest uppercase block">Pukul 09:00 WIB s/d Selesai</span>
+                </div>
+
+                <!-- COUNTDOWN TIMER CONTAINER -->
+                <div class="max-w-md mx-auto mb-4">
+                    <p class="text-gold-500/90 text-xs sm:text-sm uppercase tracking-[0.2em] mb-4 font-semibold">Menuju Hari Bahagia</p>
+                    
+                    <div class="grid grid-cols-4 gap-2 sm:gap-4 text-center">
+                        <!-- Hari -->
+                        <div class="bg-emerald-900/60 p-3 rounded-lg border border-gold-500/10">
+                            <span id="days" class="block text-2xl sm:text-3xl font-bold text-gold-100 font-serif">00</span>
+                            <span class="text-[10px] sm:text-xs text-emerald-300 uppercase tracking-wider block mt-1">Hari</span>
+                        </div>
+                        <!-- Jam -->
+                        <div class="bg-emerald-900/60 p-3 rounded-lg border border-gold-500/10">
+                            <span id="hours" class="block text-2xl sm:text-3xl font-bold text-gold-100 font-serif">00</span>
+                            <span class="text-[10px] sm:text-xs text-emerald-300 uppercase tracking-wider block mt-1">Jam</span>
+                        </div>
+                        <!-- Menit -->
+                        <div class="bg-emerald-900/60 p-3 rounded-lg border border-gold-500/10">
+                            <span id="minutes" class="block text-2xl sm:text-3xl font-bold text-gold-100 font-serif">00</span>
+                            <span class="text-[10px] sm:text-xs text-emerald-300 uppercase tracking-wider block mt-1">Menit</span>
+                        </div>
+                        <!-- Detik -->
+                        <div class="bg-emerald-900/60 p-3 rounded-lg border border-gold-500/10">
+                            <span id="seconds" class="block text-2xl sm:text-3xl font-bold text-gold-100 font-serif">00</span>
+                            <span class="text-[10px] sm:text-xs text-emerald-300 uppercase tracking-wider block mt-1">Detik</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seksi Peta / Google Maps -->
+        <section class="max-w-2xl mx-auto px-6 text-center mb-12">
+            <div class="bg-emerald-950/40 border border-gold-500/20 rounded-3xl p-6 sm:p-8 shadow-xl">
+                <i class="fa-solid fa-map-location-dot text-gold-500 text-4xl mb-4"></i>
+                <h3 class="font-serif text-xl sm:text-2xl text-gold-100 font-semibold mb-2">Lokasi Acara</h3>
+                <p class="text-emerald-200/90 text-sm mb-6">Silakan klik tombol di bawah untuk melihat rute perjalanan atau peta langsung melalui Google Maps.</p>
+
+                <!-- 
+                    GOOGLE MAPS MOCKUP / PLACEHOLDER
+                    Karena link maps.app.goo.gl tidak bisa langsung dimasukkan sebagai src iframe, 
+                    kami menyajikan visualisasi peta yang sangat estetik dengan tombol navigasi langsung.
+                -->
+                <div class="relative w-full h-48 rounded-2xl overflow-hidden mb-6 border border-gold-500/30 shadow-inner group">
+                    <div class="absolute inset-0 bg-emerald-900/80 flex flex-col justify-center items-center px-4 z-10 group-hover:bg-emerald-900/70 transition-all duration-300">
+                        <div class="w-12 h-12 bg-gold-600 rounded-full flex items-center justify-center text-emerald-950 text-xl shadow-lg mb-2 animate-bounce">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <span class="text-gold-100 text-sm font-semibold">Rumah Kediaman Aliando</span>
+                        <span class="text-emerald-200/70 text-xs text-center max-w-xs mt-1">Ketuk tombol di bawah untuk melihat alamat lengkap di aplikasi peta Anda.</span>
+                    </div>
+                    <!-- Gambar Latar Belakang Peta Semu untuk estetika -->
+                    <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=800" alt="Map Preview" class="w-full h-full object-cover opacity-30 blur-[1px]">
+                </div>
+
+                <!-- Tombol Navigasi ke Google Maps -->
+                <a href="https://maps.app.goo.gl/BwiTwf8FPyuVVhc46" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-600 text-emerald-950 font-bold px-8 py-3.5 rounded-full shadow-lg transform transition-all hover:scale-105 active:scale-95 text-sm sm:text-base">
+                    <i class="fa-solid fa-diamond-turn-right"></i>
+                    Buka Google Maps
+                </a>
+            </div>
+        </section>
+
+        <!-- Seksi Penutup -->
+        <footer class="max-w-2xl mx-auto px-6 text-center mt-16 pt-12 border-t border-gold-500/20">
+            <p class="text-emerald-200/80 text-sm italic mb-6">
+                Wassalamu'alaikum warahmatullahi wabarakatuh
+            </p>
+            <p class="text-gold-500/80 font-serif text-xs uppercase tracking-[0.25em] mb-2">Keluarga yang mengundang</p>
+            <p class="text-gold-100 font-semibold text-sm sm:text-base">Bpk. Muhammad Syarif & Ibu Erni Senita</p>
+            
+            <div class="mt-12 text-gold-500/30 text-[10px] tracking-wider">
+                Made with <i class="fa-solid fa-heart text-gold-600/50"></i> for Muhammad Aliando Syarif
+            </div>
+        </footer>
+    </main>
+
+    <!-- ========================================== -->
+    <!--            JAVASCRIPT CONTROLS             -->
+    <!-- ========================================== -->
+    <script>
+        // DOM Elements
+        const welcomeCover = document.getElementById('welcomeCover');
+        const mainContent = document.getElementById('mainContent');
+        const btnOpen = document.getElementById('btnOpen');
+        const bgMusic = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        const musicIcon = document.getElementById('musicIcon');
+
+        // 1. Audio Control Logic
+        let isMusicPlaying = false;
+
+        function playMusic() {
+            bgMusic.play().then(() => {
+                isMusicPlaying = true;
+                musicIcon.classList.add('music-spin');
+                musicIcon.classList.replace('fa-play', 'fa-compact-disc');
+            }).catch(err => {
+                console.log("Autoplay music ditahan oleh browser. Menunggu klik manual.");
+            });
+        }
+
+        function toggleMusic() {
+            if (isMusicPlaying) {
+                bgMusic.pause();
+                isMusicPlaying = false;
+                musicIcon.classList.remove('music-spin');
+                musicIcon.classList.replace('fa-compact-disc', 'fa-play');
+            } else {
+                bgMusic.play();
+                isMusicPlaying = true;
+                musicIcon.classList.add('music-spin');
+                musicIcon.classList.replace('fa-play', 'fa-compact-disc');
+            }
+        }
+
+        musicToggle.addEventListener('click', toggleMusic);
+
+        // 2. Open Invitation (Transitions)
+        btnOpen.addEventListener('click', () => {
+            // Sembunyikan Cover dengan transisi geser ke atas
+            welcomeCover.classList.replace('cover-active', 'cover-hidden');
+            
+            // Tampilkan Konten Utama secara perlahan (fade-in)
+            mainContent.classList.replace('opacity-0', 'opacity-100');
+            
+            // Tampilkan Tombol Kontrol Musik Melayang
+            musicToggle.classList.remove('hidden');
+            
+            // Jalankan Musik Latar
+            playMusic();
+            
+            // Scroll ke posisi paling atas dokumen secara aman
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 3. Countdown Timer Logic (Target: June 28, 2026 09:00:00)
+        const targetDate = new Date("June 28, 2026 09:00:00").getTime();
+
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            // Perhitungan waktu
+            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Tampilkan ke element HTML dengan padding nol di depan
+            document.getElementById('days').innerText = d > 9 ? d : '0' + d;
+            document.getElementById('hours').innerText = h > 9 ? h : '0' + h;
+            document.getElementById('minutes').innerText = m > 9 ? m : '0' + m;
+            document.getElementById('seconds').innerText = s > 9 ? s : '0' + s;
+
+            // Jika countdown habis, tampilkan teks acara dimulai
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById('days').innerText = '00';
+                document.getElementById('hours').innerText = '00';
+                document.getElementById('minutes').innerText = '00';
+                document.getElementById('seconds').innerText = '00';
+            }
+        };
+
+        // Jalankan countdown langsung & update setiap detik
+        updateCountdown();
+        const countdownInterval = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
